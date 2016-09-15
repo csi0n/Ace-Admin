@@ -16,6 +16,7 @@ class CreatePermissionsTable extends Migration
             $table->increments('id')->unsigned();
             $table->string('name');
             $table->string('slug')->unique();
+            $table->tinyInteger('status')->default(0)->comment('0:正常-1:禁用');
             $table->string('description')->nullable();
             $table->string('model')->nullable();
             $table->timestamps();

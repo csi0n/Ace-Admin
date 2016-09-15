@@ -39,10 +39,18 @@
                                     <h4 class="header blue lighter bigger">
                                         <i class="icon-coffee green"></i>
                                         Please Enter Your Information
+                                        @if (isset($errors) && count($errors) > 0 )
+                                            <div class="alert alert-danger">
+                                                <!-- <button class="close" data-close="alert"></button> -->
+                                                @foreach($errors->all() as $error)
+                                                    <span class="help-block"><strong>{{ $error }}</strong></span>
+                                                @endforeach
+                                            </div>
+                                        @endif
                                     </h4>
 
-                                    <div class="space-6">123</div>
-                                    {!! Form::open(array('url'=>'login','method'=>'post')) !!}
+                                    <div class="space-6"></div>
+                                    {!! Form::open(array('url'=>'login','method'=>'POST')) !!}
                                         <fieldset>
                                             <label class="block clearfix">
 														<span class="block input-icon input-icon-right">
@@ -64,28 +72,20 @@
                                                              <img style="cursor: pointer;" src="{{captcha_src()}}" onclick="this.src='{{captcha_src()}}' + Math.random()">
 														</span>
                                             </label>
-
                                             <div class="space"></div>
 
                                             <div class="clearfix">
                                                 <label class="inline">
                                                     {!! Form::checkbox('remember',null,false,['class'=>'ace']) !!}
-                                                    {{--<input type="checkbox" class="ace" />--}}
                                                     <span class="lbl">{{trans('global.login.rememberPassword')}}</span>
                                                 </label>
-                                                {{--<i class="icon-key"></i>--}}
                                                 {!! Form::submit(trans('global.login.login'),['class'=>'width-35 pull-right btn btn-sm btn-primary']) !!}
-                                                {{--<button type="submit" class="width-35 pull-right btn btn-sm btn-primary">--}}
-                                                    {{--{{trans('global.login.login')}}--}}
                                                 </button>
                                             </div>
-
                                             <div class="space-4"></div>
                                         </fieldset>
                                    {!! Form::close() !!}
-
                                 </div><!-- /widget-main -->
-
                                 <div class="toolbar clearfix">
                                     <div>
                                         <a href="#" onclick="show_box('forgot-box'); return false;" class="forgot-password-link">
