@@ -157,6 +157,8 @@ return [
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         Mews\Captcha\CaptchaServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
+        HieuLe\Active\ActiveServiceProvider::class,
+
 
         /*
          * Application Service Providers...
@@ -165,6 +167,8 @@ return [
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\ComposerServiceProvider::class,
+        App\Providers\BackendServiceProvider::class,
 
     ],
 
@@ -214,6 +218,15 @@ return [
         'Captcha' => Mews\Captcha\Facades\Captcha::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
+        'Active' => HieuLe\Active\Facades\Active::class,
+
+
+
+
+        'MenusRepository'=>App\Facades\MenusFacade::class,
+        'PermissionRepository'=>App\Facades\PermissionFacade::class,
+        'RoleRepository'=>App\Facades\RoleFacade::class,
+        'UserRepository'=>App\Facades\UserFacade::class,
 
     ],
 

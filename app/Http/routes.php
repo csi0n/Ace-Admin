@@ -18,5 +18,6 @@ Route::group(['middleware'=>['web']],function (){
     Route::auth();
     Route::group(['prefix'=>'admin','namespace'=>'Admin','middleware'=>['auth']],function ($router){
         require __DIR__.'/Routes/Admin/IndexRoute.php';
+        require __DIR__.'/Routes/Admin/UserRoute.php';
     });
 });

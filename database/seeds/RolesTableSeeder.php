@@ -26,7 +26,7 @@ class RolesTableSeeder extends Seeder
             'description' => '普通用户',
         ]);
 
-        $all_permissions=Permission::where('status',config('admin.global.status.active'));
+        $all_permissions=Permission::where('status',config('admin.global.status.active'))->get();
         foreach ($all_permissions as $permission){
             $adminRole->attachPermission($permission);
         }

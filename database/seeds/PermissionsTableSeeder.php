@@ -12,6 +12,11 @@ class PermissionsTableSeeder extends Seeder
      */
     public function run()
     {
+        Permission::create([
+            'name'=>'控制台',
+            'slug'=>'admin.systems.index',
+            'description'=>'控制台',
+        ]);
 
         Permission::create([
             'name'=>'系统管理',
@@ -37,12 +42,12 @@ class PermissionsTableSeeder extends Seeder
             'description' => '创建菜单'
         ]);
         Permission::create([
-            'name' => 'Menus delete',
+            'name' => '删除菜单',
             'slug' => 'admin.menus.delete',
             'description' => '删除菜单'
         ]);
         Permission::create([
-            'name' => 'Menus edit',
+            'name' => '修改菜单',
             'slug' => 'admin.menus.edit',
             'description' => '修改菜单'
         ]);
@@ -73,6 +78,63 @@ class PermissionsTableSeeder extends Seeder
             'name' => '修改角色',
             'slug' => 'admin.roles.edit',
             'description' => '修改角色'
+        ]);
+
+        Permission::create([
+            'name' => '显示权限列表',
+            'slug' => 'admin.permissions.list',
+            'description' => '显示权限列表'
+        ]);
+
+        Permission::create([
+            'name' => '创建权限',
+            'slug' => 'admin.permissions.create',
+            'description' => '创建权限'
+        ]);
+
+
+        Permission::create([
+            'name' => '删除权限',
+            'slug' => 'admin.permissions.delete',
+            'description' => '删除权限'
+        ]);
+
+
+        Permission::create([
+            'name' => '修改权限',
+            'slug' => 'admin.permissions.edit',
+            'description' => '修改权限'
+        ]);
+
+
+        Permission::create([
+            'name' => '显示用户列表',
+            'slug' => 'admin.users.list',
+            'description' => '显示用户列表'
+        ]);
+
+        Permission::create([
+            'name' => '创建用户',
+            'slug' => 'admin.users.create',
+            'description' => '创建用户'
+        ]);
+
+        /**
+         * 删除用户
+         */
+        Permission::create([
+            'name' => '删除用户',
+            'slug' => 'admin.users.delete',
+            'description' => '删除用户'
+        ]);
+
+        /**
+         * 修改用户
+         */
+        Permission::create([
+            'name' => '修改用户',
+            'slug' => 'admin.users.edit',
+            'description' => '修改用户'
         ]);
     }
 }
