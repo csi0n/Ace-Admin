@@ -22,34 +22,33 @@
                         <div id="sample-table-2_wrapper" class="dataTables_wrapper" role="grid">
                            <table id="user" class="table table-striped table-bordered table-hover dataTable" aria-describedby="sample-table-2_info">
                                 <thead>
-                                <tr role="row"><th class="center sorting_disabled" role="columnheader" rowspan="1" colspan="1" aria-label="" style="width: 56px;">
+                                <tr role="row">
+                                    <th class="center sorting_disabled" style="width: 56px;">
                                         <label>
                                             <input type="checkbox" class="ace">
                                             <span class="lbl"></span>
                                         </label>
                                     </th>
-                                    <th class="sorting" role="columnheader" tabindex="0" aria-controls="sample-table-2" rowspan="1" colspan="1" aria-label="Domain: activate to sort column ascending" style="width: 162px;">
-                                        Domain
+                                    <th class="sorting" style="width: 162px;">
+                                        用户名
                                     </th>
-                                    <th class="sorting" role="columnheader" tabindex="0" aria-controls="sample-table-2" rowspan="1" colspan="1" aria-label="Price: activate to sort column ascending" style="width: 112px;">
-                                        Price
+                                    <th class="sorting"  style="width: 112px;">
+                                        邮箱
                                     </th>
-                                    <th class="hidden-480 sorting" role="columnheader" tabindex="0" aria-controls="sample-table-2" rowspan="1" colspan="1" aria-label="Clicks: activate to sort column ascending" style="width: 121px;">
-                                        Clicks
+                                    <th class="hidden-480 sorting" style="width: 121px;">
+                                        状态
                                     </th>
-                                    <th class="sorting" role="columnheader" tabindex="0" aria-controls="sample-table-2" rowspan="1" colspan="1" aria-label="Update: activate to sort column ascending" style="width: 179px;">
-                                        <i class="icon-time bigger-110 hidden-480"></i>
-                                        Update
+                                    <th class="sorting" style="width: 179px;">
+                                        创建时间
                                     </th>
-                                    <th class="hidden-480 sorting" role="columnheader" tabindex="0" aria-controls="sample-table-2" rowspan="1" colspan="1" aria-label="Status: activate to sort column ascending" style="width: 156px;">
-                                        Status
+                                    <th class="hidden-480 sorting" style="width: 156px;">
+                                        修改时间
                                     </th>
-                                    <th class="sorting_disabled" role="columnheader" rowspan="1" colspan="1" aria-label="" style="width: 155px;">
+                                    <th class="sorting_disabled"  style="width: 155px;">
+                                        操作
                                     </th>
                                 </tr>
                                 </thead>
-
-
                                 <tbody role="alert" aria-live="polite" aria-relevant="all">
 
                                 </tbody>

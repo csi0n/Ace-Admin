@@ -17,6 +17,7 @@ Route::get('/', function () {
 Route::group(['middleware'=>['web']],function (){
     Route::auth();
     Route::group(['prefix'=>'admin','namespace'=>'Admin','middleware'=>['auth']],function ($router){
+        $router->get('/i18n', 'IndexController@dataTableI18n');
         require __DIR__.'/Routes/Admin/IndexRoute.php';
         require __DIR__.'/Routes/Admin/UserRoute.php';
     });

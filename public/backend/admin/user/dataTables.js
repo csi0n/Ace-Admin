@@ -1,24 +1,47 @@
 /**
  * Created by chqss on 2016/9/16.
  */
-jQuery(function($) {
-    var oTable1 = $('#user').dataTable( {
-        "bProcessing":true,
+jQuery(function ($) {
+    var oTable1 = $('#user').dataTable({
+        "bProcessing": true,
         "bServerSide": true,
-        "sPaginationType": "full_numbers",
-        "sAjaxSource":"/admin/user/ajaxIndex",
+        "sAjaxSource": "/admin/user/ajaxIndex",
+        "sDom":"<'row'<'col-sm-6'l><'col-sm-6'f>>rt<'row'<'col-sm-6' i><'col-sm-6' p>>",
+        "aaSorting":[],
+        "sPaginationType": "bootstrap",
         "aoColumns": [
-            { "bSortable": false },
-            null, null,null, null, null,
-            { "bSortable": false }
-        ] } );
+            {
+                "bSortable": false,
+                "mData": "id",
+                "mRender":function (data,type,full) {
+                    return data;
+                }
+            },
+            {"mData":"name"},
+            {"mData":"email"},
+            {"mData":"status"},
+            {"mData":"created_at"},
+            {"mData":"updated_at"},
+            {"mData":"actionButton"}
+        ],
+        "aLengthMenu": [
+            [5, 10, 15, 20, 50],
+            [5, 10, 15, 20, 50],
+        ],
+        "pageLength": 50,
+        "fnDrawCallback":function (oSettings) {
+
+        },
+        "oLanguage": {
+            "sUrl": "/admin/i18n"
+        },
+    });
 
 
-
-    $('table th input:checkbox').on('click' , function(){
+    $('table th input:checkbox').on('click', function () {
         var that = this;
         $(this).closest('table').find('tr > td:first-child input:checkbox')
-            .each(function(){
+            .each(function () {
                 this.checked = that.checked;
                 $(this).closest('tr').toggleClass('selected');
             });
@@ -36,7 +59,7 @@ jQuery(function($) {
         var off2 = $source.offset();
         var w2 = $source.width();
 
-        if( parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2) ) return 'right';
+        if (parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2)) return 'right';
         return 'left';
     }
 });
