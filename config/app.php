@@ -223,7 +223,7 @@ return [
 
 
 
-        'MenusRepository'=>App\Facades\MenusFacade::class,
+        'MenuRepository'=>App\Facades\MenuFacade::class,
         'PermissionRepository'=>App\Facades\PermissionFacade::class,
         'RoleRepository'=>App\Facades\RoleFacade::class,
         'UserRepository'=>App\Facades\UserFacade::class,

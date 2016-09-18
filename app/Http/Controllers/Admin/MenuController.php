@@ -1,0 +1,23 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use MenuRepository;
+use Illuminate\Http\Request;
+
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
+
+class MenuController extends Controller
+{
+    public function index()
+    {
+        return view('admin.menu.list');
+    }
+
+    public function ajaxIndex()
+    {
+        $data = MenuRepository::ajaxIndex();
+        return response()->json($data);
+    }
+}

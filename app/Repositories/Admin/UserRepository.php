@@ -14,7 +14,8 @@ use App\User;
 class UserRepository extends BaseRepository
 {
 
-    public function ajaxIndex(){
+    public function ajaxIndex()
+    {
         /*获取数据*/
         $draw = request('sEcho', 1);//请求次数
         /*每页条数*/
@@ -23,23 +24,24 @@ class UserRepository extends BaseRepository
         $start = request('iDisplayStart', 0);
         /*搜索内容*/
         $search = request('sSearch', '');
-        $sort=request('sSortDir_0','');
-        $user=new User;
-        if ($search){
-            $user=$user->where('name','like',"%{$search}%")
-                ->orWhere('email','like',"%{$search}%");
+        $sort = request('sSortDir_0', '');
+        $user = new User;
+        if ($search) {
+            $user = $user->where('name', 'like', "%{$search}%")
+                ->orWhere('email', 'like', "%{$search}%");
         }
-        if ($sort){
-            $orderName=request('mDataProp_'.request('iSortCol_0',''),'');
-            $user=$user->orderBy($orderName,$sort);
+        $tempUser = $user;
+        $count = $tempUser->count();
+        if ($sort) {
+            $orderName = request('mDataProp_' . request('iSortCol_0', ''), '');
+            $user = $user->orderBy($orderName, $sort);
         }
-        $user=$user->offset($start)
+        $user = $user->offset($start)
             ->limit($length)
             ->get();
-        $count=$user->count();
-        $user->isEmpty()?$user=[]:$user=$user->toArray();
-        foreach ($user as &$v){
-            $v['actionButton']='';
+        $user->isEmpty() ? $user = [] : $user = $user->toArray();
+        foreach ($user as &$v) {
+            $v['actionButton'] = '';
         }
         /*返回数据*/
         $returnData = [

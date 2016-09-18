@@ -23,8 +23,8 @@ class BackendServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton('MenusRepository', function ($app) {
-            return new \App\Repositories\Admin\MenusRepository($app);
+        $this->app->singleton('MenuRepository', function ($app) {
+            return new \App\Repositories\Admin\MenuRepository($app);
         });
         $this->app->singleton('PermissionRepository', function ($app) {
             return new \App\Repositories\Admin\PermissionRepository($app);

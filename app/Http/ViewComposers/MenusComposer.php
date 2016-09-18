@@ -10,7 +10,7 @@ namespace app\Http\ViewComposers;
 
 
 use Illuminate\View\View;
-use MenusRepository as Menus;
+use MenuRepository as Menus;
 
 class MenusComposer
 {

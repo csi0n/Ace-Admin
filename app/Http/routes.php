@@ -14,11 +14,14 @@
 Route::get('/', function () {
     return view('welcome');
 });
-Route::group(['middleware'=>['web']],function (){
+Route::group(['middleware' => ['web']], function () {
     Route::auth();
-    Route::group(['prefix'=>'admin','namespace'=>'Admin','middleware'=>['auth']],function ($router){
+    Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth']], function ($router) {
         $router->get('/i18n', 'IndexController@dataTableI18n');
-        require __DIR__.'/Routes/Admin/IndexRoute.php';
-        require __DIR__.'/Routes/Admin/UserRoute.php';
+        require __DIR__ . '/Routes/Admin/IndexRoute.php';
+        require __DIR__ . '/Routes/Admin/UserRoute.php';
+        require __DIR__ . '/Routes/Admin/RoleRoute.php';
+        require __DIR__ . '/Routes/Admin/PermissionRoute.php';
+        require __DIR__ . '/Routes/Admin/MenusRoute.php';
     });
 });

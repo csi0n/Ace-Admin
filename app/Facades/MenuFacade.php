@@ -11,10 +11,10 @@ namespace App\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
-class MenusFacade extends Facade
+class MenuFacade extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return 'MenusRepository';
+        return 'MenuRepository';
     }
 }
