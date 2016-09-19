@@ -16,7 +16,7 @@
     <![endif]-->
 
     <!-- page specific plugin styles -->
-
+    @yield('css')
     <!-- fonts -->
 
     <!-- ace styles -->
@@ -446,6 +446,10 @@
         <i class="icon-double-angle-up icon-only bigger-110"></i>
     </a>
 </div><!-- /.main-container -->
+
+
+
+
 
 <!-- basic scripts -->
 <!--[if !IE]> -->

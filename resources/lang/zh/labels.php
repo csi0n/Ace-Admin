@@ -11,6 +11,7 @@ return [
     'delete' => '删除',
     'submit'=>'提交',
     'reset'=>'重置',
+    'save'=>'保存',
     'user' => [
         'systemManage' => '系统管理',
         'userManage' => '用户管理',

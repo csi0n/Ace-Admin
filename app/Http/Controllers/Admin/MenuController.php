@@ -12,7 +12,8 @@ class MenuController extends Controller
 {
     public function index()
     {
-        return view('admin.menu.list');
+        $menus=MenuRepository::menus();
+        return view('admin.menu.list',compact('menus'));
     }
 
     public function ajaxIndex()

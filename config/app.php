@@ -158,6 +158,7 @@ return [
         Mews\Captcha\CaptchaServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         HieuLe\Active\ActiveServiceProvider::class,
+        Laracasts\Flash\FlashServiceProvider::class,
 
 
         /*
@@ -169,6 +170,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\ComposerServiceProvider::class,
         App\Providers\BackendServiceProvider::class,
+
 
     ],
 
@@ -219,6 +221,7 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
         'Active' => HieuLe\Active\Facades\Active::class,
+        'Flash' => Laracasts\Flash\Flash::class,
 
 
 

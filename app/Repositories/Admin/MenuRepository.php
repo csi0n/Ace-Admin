@@ -14,7 +14,8 @@ use Cache;
 class MenuRepository extends BaseRepository
 {
 
-    public function ajaxIndex(){
+    public function ajaxIndex()
+    {
         /*获取数据*/
         $draw = request('sEcho', 1);//请求次数
         /*每页条数*/
@@ -30,8 +31,8 @@ class MenuRepository extends BaseRepository
                 ->orWhere('slug', 'like', "%{$search}%")
                 ->orWhere('description', 'like', "%{$search}%");
         }
-        $tempMenu=$menu;
-        $count=$tempMenu->count();
+        $tempMenu = $menu;
+        $count = $tempMenu->count();
         if ($sort) {
             $orderName = request('mDataProp_' . request('iSortCol_0', ''), '');
             $menu = $menu->orderBy($orderName, $sort);
@@ -39,10 +40,11 @@ class MenuRepository extends BaseRepository
         $menu = $menu->offset($start)
             ->limit($length)
             ->get();
-        $menu->isEmpty() ? $menu = [] : $menu = $menu->toArray();
-        foreach ($menu as &$v) {
-            $v['actionButton'] = '';
+
+        foreach ($menu as $v) {
+            $v['actionButton'] = $v->GetActionButton();
         }
+        $menu->isEmpty() ? $menu = [] : $menu = $menu->toArray();
         /*返回数据*/
         $returnData = [
             "sEcho" => $draw,
@@ -52,6 +54,7 @@ class MenuRepository extends BaseRepository
         ];
         return $returnData;
     }
+
     public function menus()
     {
         if (Cache::has(config('admin.global.cache.menu')))
