@@ -10,6 +10,7 @@ namespace App\Repositories\Admin;
 
 use App\Models\Menu;
 use Cache;
+use Flash;
 
 class MenuRepository extends BaseRepository
 {
@@ -94,5 +95,65 @@ class MenuRepository extends BaseRepository
             Cache::forever(config('admin.global.cache.menu'), $menuList);
         }
         return $menuList;
+    }
+
+    public function edit($id)
+    {
+        return $this->verifyMenu($id);
+    }
+
+    public function store($request)
+    {
+        $menu = new Menu;
+        if ($menu->fill($request->all())->save()) {
+            $this->setMenuListCache();
+            Flash::success(trans('alerts.menu.addSuccess'));
+            return true;
+        }
+        Flash::error(trans('alerts.menu.addFailed'));
+        return false;
+    }
+
+    public function sort()
+    {
+        $currentItemId = request('currentItemId', 0);
+        $itemParentId = request('itemParentId', 0);
+        if (!$currentItemId) {
+            return ['status' => false, 'msg' => trans('alerts.menu.addFailed')];
+        }
+        $menu = Menu::find($currentItemId);
+        if ($menu) {
+            $menu->pid = $itemParentId;
+            if ($menu->save()) {
+                $this->setMenuListCache();
+                return ['status' => false, 'msg' => trans('alerts.menu.updatedSuccess')];
+            }
+        }
+        return ['status' => false, 'msg' => trans('alerts.menu.updatedFailed')];
+    }
+
+    public function destroy($id)
+    {
+        dd($id);
+        $menu = $this->verifyMenu($id);
+        if (empty($menu))
+            return false;
+        $ret = $menu->delete();
+        if ($ret) {
+            Flash::success(trans('alerts.menu.deleteSuccess'));
+            return true;
+        }
+        Flash::error(trans('alerts.menu.deleteFailed'));
+        return false;
+    }
+
+    private function verifyMenu($id)
+    {
+        $menu = Menu::find($id);
+        if (empty($menu)) {
+            Flash::error(trans('alerts.menu.notFind'));
+            return false;
+        }
+        return $menu;
     }
 }

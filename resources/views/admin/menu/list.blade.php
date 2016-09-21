@@ -1,4 +1,7 @@
 @extends('layouts.admin')
+@section('css')
+    <link rel="stylesheet" href="{{asset('backend/plugin/css/jquery.gritter.css')}}"/>
+@endsection
 @section('content')
     <div class="page-content">
         <div class="page-header">
@@ -13,26 +16,61 @@
         <div class="row">
             <!-- PAGE CONTENT BEGINS -->
             <div class="col-xs-12">
+                @include('flash::message')
                 <h3 class="header smaller lighter blue">{{trans('labels.menu.list')}}</h3>
                 <div class="table-responsive">
                     <div class="row">
                         <div class="col-sm-6">
-                            <div class="dd" id="nestable">
+                            <div class="dd" id="nestable_list">
                                 <ol class="dd-list">
                                     @if($menus)
                                         @foreach($menus as $v)
                                             @if($v['child'])
                                                 <li class="dd-item" data-id="{{$v['id']}}" data-pid="{{$v['pid']}}">
                                                     <div class="dd-handle">
+                                                        {{$v['name']}}
                                                         <div class="pull-right action-buttons">
-                                                            {{$v->GetActionButton()}}
+                                                            @permission(config('admin.permissions.menu.create'))
+                                                            <a class="blue" data-pid="{{$v['id']}}" href="javascript:;">
+                                                                <i class="icon-exclamation-sign bigger-130"></i>
+                                                            </a>
+                                                            @endpermission
+                                                            @permission(config('admin.permissions.menu.edit'))
+                                                            <a class="green" data-pid="{{$v['id']}}"
+                                                               href="javascript:;">
+                                                                <i class="icon-pencil bigger-130"></i>
+                                                            </a>
+                                                            @endpermission
+                                                            @permission(config('admin.permissions.menu.delete'))
+                                                            <a href="javascript:;" onclick="return false" class="red destoryMenu">
+                                                                <i class="icon-trash bigger-130"></i>
+                                                                {!! Form::open(array('route'=>['admin.menu.destroy',$v['id']],'method'=>'delete','name'=>'delete_item')) !!}{!! Form::close() !!}
+                                                            </a>
+                                                            @endpermission
                                                         </div>
                                                     </div>
                                                     <ol class="dd-list">
                                                         @foreach($v['child'] as $val)
-                                                            <li class="dd-item item-orange" data-id="{{$val['id']}}" data-pid="{{$val['pid
-                                                            ']}}">
-                                                                <div class="dd-handle"> Item 6</div>
+                                                            <li class="dd-item item-orange" data-id="{{$val['id']}}"
+                                                                data-pid="{{$val['pid']}}">
+                                                                <div class="dd-handle">
+                                                                    {{$val['name']}}
+                                                                    <div class="pull-right action-buttons">
+                                                                        @permission(config('admin.permissions.menu.edit'))
+                                                                        <a class="green" data-pid="{{$v['id']}}"
+                                                                           href="javascript:;">
+                                                                            <i class="icon-pencil bigger-130"></i>
+                                                                        </a>
+                                                                        @endpermission
+                                                                        @permission(config('admin.permissions.menu.delete'))
+                                                                        <a href="javascript:;" onclick="return false"
+                                                                           class="red destoryMenu">
+                                                                            <i class="icon-trash bigger-130"></i>
+                                                                            {!! Form::open(array('route'=>['admin.menu.destroy',$v['id']],'method'=>'delete','name'=>'delete_item')) !!}{!! Form::close() !!}
+                                                                        </a>
+                                                                        @endpermission
+                                                                    </div>
+                                                                </div>
                                                             </li>
                                                         @endforeach
                                                     </ol>
@@ -40,100 +78,108 @@
                                             @endif
                                         @endforeach
                                     @endif
-
-
-                                    <li class="dd-item" data-id="2">
-                                        <button data-action="collapse" type="button">Collapse</button>
-                                        <button data-action="expand" type="button" style="display: none;">Expand
-                                        </button>
-                                        <div class="dd-handle">Item 2</div>
-
-                                        <ol class="dd-list">
-                                            <li class="dd-item" data-id="3">
-                                                <div class="dd-handle">
-                                                    Item 3
-                                                    <a data-rel="tooltip" data-placement="left" title="" href="#"
-                                                       class="badge badge-primary radius-5 tooltip-info pull-right white no-hover-underline"
-                                                       data-original-title="Change Event Date">
-                                                        <i class="bigger-120 icon-calendar"></i>
-                                                    </a>
-                                                </div>
-                                            </li>
-
-                                            <li class="dd-item" data-id="4">
-                                                <div class="dd-handle">
-                                                    <span class="orange">Item 4</span>
-                                                    <span class="lighter grey">
-																	&nbsp; with some description
-																</span>
-                                                </div>
-                                            </li>
-
-                                            <li class="dd-item" data-id="5">
-                                                <button data-action="collapse" type="button">Collapse</button>
-                                                <button data-action="expand" type="button" style="display: none;">
-                                                    Expand
-                                                </button>
-                                                <div class="dd-handle">
-                                                    Item 5
-                                                    <div class="pull-right action-buttons">
-                                                        <a class="blue" href="#">
-                                                            <i class="icon-pencil bigger-130"></i>
-                                                        </a>
-
-                                                        <a class="red" href="#">
-                                                            <i class="icon-trash bigger-130"></i>
-                                                        </a>
-                                                    </div>
-                                                </div>
-
-                                                <ol class="dd-list">
-                                                    <li class="dd-item item-orange" data-id="6">
-                                                        <div class="dd-handle"> Item 6</div>
-                                                    </li>
-
-                                                    <li class="dd-item item-red" data-id="7">
-                                                        <div class="dd-handle">Item 7</div>
-                                                    </li>
-
-                                                    <li class="dd-item item-blue2" data-id="8">
-                                                        <div class="dd-handle">Item 8</div>
-                                                    </li>
-                                                </ol>
-                                            </li>
-
-                                            <li class="dd-item" data-id="9">
-                                                <div class="dd-handle btn-yellow no-hover">Item 9</div>
-                                            </li>
-
-                                            <li class="dd-item" data-id="10">
-                                                <div class="dd-handle">Item 10</div>
-                                            </li>
-                                        </ol>
-                                    </li>
-
-                                    <li class="dd-item" data-id="11">
-                                        <div class="dd-handle">
-                                            Item 11
-                                            <span class="sticker">
-															<span class="label label-success arrowed-in">
-																<i class="icon-ok bigger-110"></i>
-															</span>
-														</span>
-                                        </div>
-                                    </li>
-
-                                    <li class="dd-item" data-id="12">
-                                        <div class="dd-handle">Item 12</div>
-                                    </li>
                                 </ol>
                             </div>
                         </div>
 
-                        <div class="vspace-sm-16"></div>
+                        <div class="vspace-sm-5"></div>
 
                         <div class="col-sm-6">
-
+                            {!! Form::open(array('route'=>'admin.menu.store','method'=>'post','class'=>'form-horizontal','role'=>'form')) !!}
+                            <div class="form-group">
+                                {!! Form::label('name',trans('labels.menu.name'),['class'=>'col-sm-3 control-label no-padding-right']) !!}
+                                <div class="col-sm-9">
+                                    {!! Form::text('name',old('name'),['class'=>'col-xs-10 col-sm-5','placeholder'=>trans('labels.menu.name')]) !!}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                {!! Form::label('language',trans('labels.menu.language'),['class'=>'col-sm-3 control-label no-padding-right']) !!}
+                                <div class="col-sm-9">
+                                    {!! Form::text('language',old('language'),['class'=>'col-xs-10 col-sm-5','placeholder'=>trans('labels.menu.language')]) !!}
+                                </div>
+                            </div>
+                            <div class="space-4"></div>
+                            <div class="form-group">
+                                {!! Form::label('icon',trans('labels.menu.icon'),['class'=>'col-sm-3 control-label no-padding-right']) !!}
+                                <div class="col-sm-9">
+                                    {!! Form::text('icon',old('icon'),['class'=>'col-xs-10 col-sm-5','placeholder'=>trans('labels.menu.icon')]) !!}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div>
+                                    {!! Form::label('pid',trans('labels.menu.pid'),['class'=>'col-sm-3 control-label no-padding-right']) !!}
+                                    <div class="col-sm-9">
+                                        <select class="col-xs-10 col-sm-5" id="pid" name="pid">
+                                            @if(!empty($menus))
+                                                @foreach($menus as $menu)
+                                                    <option value="{{$menu['id']}}">{{$menu['name']}}</option>
+                                                    @if(!empty($menu['child']))
+                                                        @foreach($menu['child'] as $v)
+                                                            <option value="{{$v['id']}}">{{$v['name']}}</option>
+                                                        @endforeach
+                                                    @endif
+                                                @endforeach
+                                            @endif
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="space-4"></div>
+                            <div class="form-group">
+                                {!! Form::label('slug',trans('labels.permission.slug'),['class'=>'col-sm-3 control-label no-padding-right']) !!}
+                                <div class="col-sm-9">
+                                    {!! Form::text('slug',old('slug'),['class'=>'col-xs-10 col-sm-5','placeholder'=>trans('labels.permission.slug')]) !!}
+                                </div>
+                            </div>
+                            <div class="space-4"></div>
+                            <div class="form-group">
+                                {!! Form::label('url',trans('labels.menu.url'),['class'=>'col-sm-3 control-label no-padding-right']) !!}
+                                <div class="col-sm-9">
+                                    {!! Form::text('url',old('url'),['class'=>'col-xs-10 col-sm-5','placeholder'=>trans('labels.menu.url')]) !!}
+                                </div>
+                            </div>
+                            <div class="space-4"></div>
+                            <div class="form-group">
+                                {!! Form::label('description',trans('labels.menu.description'),['class'=>'col-sm-3 control-label no-padding-right']) !!}
+                                <div class="col-sm-9">
+                                    {!! Form::text('description',old('description'),['class'=>'col-xs-10 col-sm-5','placeholder'=>trans('labels.menu.description')]) !!}
+                                </div>
+                            </div>
+                            <div class="space-4"></div>
+                            <div class="form-group">
+                                {!! Form::label('sort',trans('labels.menu.sort'),['class'=>'col-sm-3 control-label no-padding-right']) !!}
+                                <div class="col-sm-9">
+                                    {!! Form::number('sort',old('sort'),['class'=>'col-xs-10 col-sm-5','placeholder'=>trans('labels.menu.sort')]) !!}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                {!! Form::label('form-field-3',trans('labels.menu.status'),['class'=>'col-sm-3 control-label no-padding-right']) !!}
+                                <div class="col-sm-9" id="form-field-2">
+                                    <div id="form-field-3">
+                                        <label>
+                                            <input checked name="status" value="0" type="radio" class="ace">
+                                            <span class="lbl">正常</span>
+                                        </label>
+                                        <label>
+                                            <input name="status" value="1" type="radio" class="ace">
+                                            <span class="lbl">禁用</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix form-actions">
+                                <div class="col-md-offset-3 col-md-9">
+                                    <button class="btn btn-info" type="submit">
+                                        <i class="icon-ok bigger-110"></i>
+                                        {{trans('labels.submit')}}
+                                    </button>
+                                    <button class="btn" type="reset">
+                                        <i class="icon-undo bigger-110"></i>
+                                        {{trans('labels.reset')}}
+                                    </button>
+                                </div>
+                            </div>
+                            {!! Form::close() !!}
                         </div>
                     </div>
                     <div>
@@ -144,15 +190,43 @@
             @endsection
             @section('js')
                 <script src="{{asset('backend/plugin/js/jquery.nestable.min.js')}}"></script>
+                <script src="{{asset('backend/plugin/js/jquery.gritter.min.js')}}"></script>
                 <script type="text/javascript">
                     jQuery(function ($) {
-                        $('.dd').nestable();
+                        $('#nestable_list').nestable({
+                            "maxDepth": 2,
+                        }).on('dragEnd', function (event, item, source, destination) {
+                            var currentItemId = $(item).attr('data-id');
+                            var currentItemPid = $(item).attr('data-pid');
+                            var itemParentId = $(item).parent().parent().attr('data-id');
+                            itemParentId = itemParentId == undefined ? 0 : itemParentId;
+                            if (currentItemPid == itemParentId) {
+                                return false;
+                            }
+                            $.ajax({
+                                url: '/admin/menu/sort',
+                                data: {
+                                    currentItemId: currentItemId,
+                                    itemParentId: itemParentId,
+                                },
+                                dataType: 'json',
+                                success: function (result) {
+                                    $.gritter.add({
+                                        title: '{{trans('alerts.notice')}}',
+                                        text: result.msg,
+                                        class_name: 'gritter-info gritter-center'
+                                    });
+                                }
+                            });
+                        });
                         $('.dd-handle a').on('mousedown', function (e) {
                             e.stopPropagation();
                         });
                         $('[data-rel="tooltip"]').tooltip();
-
+                        $(document).on('click','.destoryMenu',function () {
+                            //$(this).find('form[name="delete_item"]').submit();
+                        });
                     });
-                </script>
 
+                </script>
 @endsection

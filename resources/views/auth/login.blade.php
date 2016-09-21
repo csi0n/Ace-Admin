@@ -39,14 +39,6 @@
                                     <h4 class="header blue lighter bigger">
                                         <i class="icon-coffee green"></i>
                                         Please Enter Your Information
-                                        @if (isset($errors) && count($errors) > 0 )
-                                            <div class="alert alert-danger">
-                                                <!-- <button class="close" data-close="alert"></button> -->
-                                                @foreach($errors->all() as $error)
-                                                    <span class="help-block"><strong>{{ $error }}</strong></span>
-                                                @endforeach
-                                            </div>
-                                        @endif
                                     </h4>
 
                                     <div class="space-6"></div>
@@ -72,8 +64,18 @@
                                                              <img style="cursor: pointer;" src="{{captcha_src()}}" onclick="this.src='{{captcha_src()}}' + Math.random()">
 														</span>
                                             </label>
-                                            <div class="space"></div>
+                                            <div class="space">
 
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    @include('common.errors')
+                                                </div>
+                                            </div>
+                                            <div class="space">
+
+                                            </div>
                                             <div class="clearfix">
                                                 <label class="inline">
                                                     {!! Form::checkbox('remember',null,false,['class'=>'ace']) !!}

@@ -55,6 +55,7 @@ return [
         'language' => '语言',
         'icon' => '图标',
         'slug' => '权限',
+        'pid'=>'父级分类',
         'url' => '链接',
         'description' => '描述',
         'sort' => '排序',

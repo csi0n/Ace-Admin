@@ -490,6 +490,7 @@
 <script src="{{asset('backend/plugin/js/jquery.dataTables.min.js')}}"></script>
 <script src="{{asset('backend/plugin/js/jquery.dataTables.bootstrap.js')}}"></script>
 
+
 <!-- ace scripts -->
 
 <script src="{{asset('backend/plugin/js/ace-elements.min.js')}}"></script>

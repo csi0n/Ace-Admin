@@ -7,5 +7,6 @@
  */
 $router->group(['prefix'=>'menu'],function($router){
     $router->get('ajaxIndex','MenuController@ajaxIndex');
+    $router->get('sort', 'MenuController@sort');
 });
 $router->resource('menu','MenuController');
