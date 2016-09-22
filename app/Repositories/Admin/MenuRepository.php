@@ -134,12 +134,12 @@ class MenuRepository extends BaseRepository
 
     public function destroy($id)
     {
-        dd($id);
         $menu = $this->verifyMenu($id);
         if (empty($menu))
             return false;
         $ret = $menu->delete();
         if ($ret) {
+            $this->setMenuListCache();
             Flash::success(trans('alerts.menu.deleteSuccess'));
             return true;
         }

@@ -19,6 +19,7 @@ class MenusTableSeeder extends Seeder
         $index->icon = "fa fa-dashboard";
         $index->slug = "admin.systems.index";
         $index->url = "admin";
+        $index->status=0;
         $index->description = "后台首页";
         $index->save();
 
@@ -30,6 +31,7 @@ class MenusTableSeeder extends Seeder
         $system->icon = "fa fa-cog";
         $system->slug = "admin.systems.manage";
         $system->url = "admin/role*,admin/permission*,admin/user*,admin/menu*";
+        $system->status=0;
         $system->description = "系统功能管理";
         $system->save();
 
@@ -40,6 +42,7 @@ class MenusTableSeeder extends Seeder
         $user->icon = "fa fa-users";
         $user->slug = "admin.users.list";
         $user->url = "admin/user";
+        $user->status=0;
         $user->description = "显示用户管理";
         $user->save();
 
@@ -51,6 +54,7 @@ class MenusTableSeeder extends Seeder
         $role->icon = "fa fa-male";
         $role->slug = "admin.roles.list";
         $role->url = "admin/role";
+        $role->status=0;
         $role->description = "显示角色管理";
         $role->save();
 
@@ -63,6 +67,7 @@ class MenusTableSeeder extends Seeder
         $permission->slug = "admin.permissions.list";
         $permission->url = "admin/permission";
         $permission->description = "显示权限管理";
+        $permission->status=0;
         $permission->save();
 
         $menu = new Menu;
@@ -72,6 +77,7 @@ class MenusTableSeeder extends Seeder
         $menu->icon = "fa fa-navicon";
         $menu->slug = "admin.menus.list";
         $menu->url = "admin/menu";
+        $menu->status=0;
         $menu->description = "显示菜单管理";
         $menu->save();
     }

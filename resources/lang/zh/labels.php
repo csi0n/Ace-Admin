@@ -48,6 +48,7 @@ return [
         'updated_at' => '更新时间',
     ],
     'menu' => [
+        'topMenu'=>'顶级菜单',
         'systemManage' => '系统管理',
         'menuManage' => '菜单管理',
         'list' => '菜单列表',
