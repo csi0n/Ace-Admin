@@ -23,7 +23,7 @@
                     </div>
                     <div class="space-4"></div>
                     <div class="form-group">
-                        {!! Form::label('form-field-1',trans('labels.permission.slug'),['class'=>'col-sm-3 control-label no-padding-right']) !!}
+                        {!! Form::label('slug',trans('labels.permission.slug'),['class'=>'col-sm-3 control-label no-padding-right']) !!}
                         <div class="col-sm-9">
                             {!! Form::text('slug',$permission['slug'],['class'=>'col-xs-10 col-sm-5','id'=>'form-field-2','placeholder'=>trans('labels.permission.slug')]) !!}
                         </div>

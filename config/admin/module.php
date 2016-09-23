@@ -8,4 +8,6 @@
 return [
     'permissions'=>'admin.permission',
     'menu'=>'admin.menu',
+    'role'=>'admin.role',
+    'user'=>'admin.user',
 ];

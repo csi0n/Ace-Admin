@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Traits\ActionButton;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\Authenticatable;
 use Bican\Roles\Traits\HasRoleAndPermission;
@@ -12,7 +13,9 @@ use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
 class User extends Model implements AuthenticatableContract, CanResetPasswordContract, HasRoleAndPermissionContract
 {
-    use Authenticatable,CanResetPassword,HasRoleAndPermission;
+    use Authenticatable, CanResetPassword, HasRoleAndPermission, ActionButton;
+
+
     /**
      * The attributes that are mass assignable.
      *
@@ -30,4 +33,14 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * User constructor.
+     */
+    public function __construct()
+    {
+        $this->permission_delete = config('admin.permissions.user.delete');
+        $this->permission_edit = config('admin.permissions.user.edit');
+        $this->module = config('admin.module.user');
+    }
 }

@@ -16,4 +16,14 @@ return [
         'edit' => 'admin.menus.edit',
         'delete' => 'admin.menus.delete',
     ],
+    'role' => [
+        'create' => 'admin.roles.create',
+        'edit' => 'admin.roles.edit',
+        'delete' => 'admin.roles.delete',
+    ],
+    'user' => [
+        'create' => 'admin.users.create',
+        'edit' => 'admin.users.edit',
+        'delete' => 'admin.users.delete',
+    ],
 ];

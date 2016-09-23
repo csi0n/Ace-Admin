@@ -10,6 +10,7 @@ namespace App\Repositories\Admin;
 
 
 use App\Models\Role;
+use Flash;
 
 class RoleRepository extends BaseRepository
 {
@@ -33,15 +34,15 @@ class RoleRepository extends BaseRepository
             $orderName = request('mDataProp_' . request('iSortCol_0', ''), '');
             $role = $role->orderBy($orderName, $sort);
         }
-        $tempRole=$role;
-        $count=$tempRole->count();
+        $tempRole = $role;
+        $count = $tempRole->count();
         $role = $role->offset($start)
             ->limit($length)
             ->get();
-        $role->isEmpty() ? $role = [] : $role = $role->toArray();
-        foreach ($role as &$v) {
-            $v['actionButton'] = '';
+        foreach ($role as $v) {
+            $v['actionButton'] = $v->GetActionButton();;
         }
+        $role->isEmpty() ? $role = [] : $role = $role->toArray();
         /*返回数据*/
         $returnData = [
             "sEcho" => $draw,
@@ -50,5 +51,59 @@ class RoleRepository extends BaseRepository
             "aaData" => $role,
         ];
         return $returnData;
+    }
+
+    public function store($request)
+    {
+        $role = new Role;
+        if ($role->fill($request->all())->save()) {
+            if ($request->permission)
+                $role->permissions()->sync($request->permission);
+            Flash::success(trans('alerts.role.addSuccess'));
+            return true;
+        }
+        Flash::error(trans('alerts.role.addFailed'));
+        return false;
+    }
+
+    public function edit($id)
+    {
+        $role = $this->verifyRole($id);
+        $role = $role->toArray();
+        $role['permissions'] = array_column($role['permissions'], 'id');
+        return $role;
+    }
+
+    public function update($request, $id)
+    {
+        $role = $this->verifyRole($id);
+        if (empty($role))
+            return false;
+        if ($role->fill($request->all())->save()) {
+            if ($request->permission)
+                $role->permissions()->sync($request->permission);
+            Flash::success(trans('alerts.role.updateSuccess'));
+            return true;
+        }
+        Flash::error(trans('alerts.role.updateFailed'));
+        return false;
+    }
+
+    public function destroy($id)
+    {
+        $role = $this->verifyRole($id);
+        if (empty($role))
+            return false;
+        return $role->delete();
+    }
+
+    private function verifyRole($id)
+    {
+        $role = Role::with('permissions')->find($id);
+        if (!empty($role)) {
+            return $role;
+        }
+        Flash::error(trans('alerts.role.notFind'));
+        return false;
     }
 }

@@ -112,4 +112,10 @@ class PermissionRepository extends BaseRepository
         return false;
     }
 
+    public function GetAllPermissionArray()
+    {
+        $permissions = Permission::all();
+        return $permissions->isEmpty() ? [] : $permissions->toArray();
+    }
+
 }

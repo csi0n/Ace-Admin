@@ -10,6 +10,7 @@ namespace App\Repositories\Admin;
 
 
 use App\User;
+use Flash;
 
 class UserRepository extends BaseRepository
 {
@@ -39,10 +40,11 @@ class UserRepository extends BaseRepository
         $user = $user->offset($start)
             ->limit($length)
             ->get();
-        $user->isEmpty() ? $user = [] : $user = $user->toArray();
-        foreach ($user as &$v) {
-            $v['actionButton'] = '';
+
+        foreach ($user as $v) {
+            $v['actionButton'] = $v->GetActionButton();
         }
+        $user->isEmpty() ? $user = [] : $user = $user->toArray();
         /*返回数据*/
         $returnData = [
             "sEcho" => $draw,
@@ -51,5 +53,19 @@ class UserRepository extends BaseRepository
             "aaData" => $user,
         ];
         return $returnData;
+    }
+
+    public function edit($id)
+    {
+        return $this->verifyUser($id);
+    }
+
+    private function verifyUser($id)
+    {
+        $user = User::find($id);
+        if ($user)
+            return $user;
+        Flash::error(trans('alerts.user.notFind'));
+        return false;
     }
 }

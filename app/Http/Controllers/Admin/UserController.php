@@ -2,27 +2,44 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\Admin\RoleRequest;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use UserRepository;
+
 class UserController extends Controller
 {
-    public function ajaxIndex(){
-        $data=UserRepository::ajaxIndex();
+    public function ajaxIndex()
+    {
+        $data = UserRepository::ajaxIndex();
         return response()->json($data);
     }
 
-    public function index(){
+    public function index()
+    {
         return view('admin.user.list');
     }
-    public function store(){}
 
-    public function update(){}
+    public function store(RoleRequest $request)
+    {
+    }
 
-    public function create(){}
+    public function update()
+    {
+    }
 
-    public function edit($id){}
+    public function create()
+    {
+    }
+
+    public function edit($id)
+    {
+        $user = UserRepository::edit($id);
+        if ($user)
+            return view('admin.user.edit');
+        return redirect('admin/user');
+    }
 
 }

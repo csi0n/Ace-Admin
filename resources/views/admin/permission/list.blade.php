@@ -17,7 +17,12 @@
             <!-- PAGE CONTENT BEGINS -->
             <div class="col-xs-12">
                 @include('flash::message')
-                <h3 class="header smaller lighter blue">{{trans('labels.permission.list')}}<a href="{{route('admin.permission.create')}}" class="btn btn-sm btn-primary">{{trans('labels.add')}}</a></h3>
+                <h3 class="header smaller lighter blue">
+                    {{trans('labels.permission.list')}}
+                    @permission(config('admin.permissions.permission.create'))
+                    <a href="{{route('admin.permission.create')}}" class="btn btn-sm btn-primary">{{trans('labels.add')}}</a>
+                    @endpermission
+                </h3>
                 <div class="table-responsive">
                     <div id="sample-table-2_wrapper" class="dataTables_wrapper" role="grid">
                         <table id="permission" class="table table-striped table-bordered table-hover dataTable" aria-describedby="sample-table-2_info">
