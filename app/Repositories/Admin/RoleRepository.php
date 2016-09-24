@@ -106,4 +106,10 @@ class RoleRepository extends BaseRepository
         Flash::error(trans('alerts.role.notFind'));
         return false;
     }
+
+    public function GetAllRoleArray()
+    {
+        $role = Role::all();
+        return $role->isEmpty() ? [] : $role->toArray();
+    }
 }

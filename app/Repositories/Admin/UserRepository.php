@@ -55,14 +55,45 @@ class UserRepository extends BaseRepository
         return $returnData;
     }
 
+    public function store($request)
+    {
+        $user = new User;
+        $userData = $request->all();
+        $userData['password'] = $request->get('password', '123456');
+        if ($user->fill($userData)->save()) {
+            if (isset($userData['permission']))
+                $user->permission()->sync($userData['permission']);
+            if (isset($userData['roles']) && $userData['roles'])
+                $user->role()->sync($userData['roles']);
+            Flash::success(trans('alerts.user.addSuccess'));
+            return true;
+        }
+        Flash::error(trans('alerts.user.addFailed'));
+        return false;
+    }
+
     public function edit($id)
     {
-        return $this->verifyUser($id);
+        $user = $this->verifyUser($id);
+        if (empty($user))
+            return false;
+        $user = $user->toArray();
+        $user['permission'] = array_column($user['permission'], 'id');
+        $user['role'] = array_column($user['role'], 'id');
+        return $user;
+    }
+
+    public function destroy($id)
+    {
+        $user = $this->verifyUser($id);
+        if (empty($user))
+            return false;
+        return $user->delete();
     }
 
     private function verifyUser($id)
     {
-        $user = User::find($id);
+        $user = User::with(['permission', 'role'])->find($id);
         if ($user)
             return $user;
         Flash::error(trans('alerts.user.notFind'));

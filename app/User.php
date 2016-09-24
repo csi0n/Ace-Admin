@@ -43,4 +43,14 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         $this->permission_edit = config('admin.permissions.user.edit');
         $this->module = config('admin.module.user');
     }
+
+    public function permission()
+    {
+        return $this->belongsToMany('App\Models\Permission','permission_user','user_id','permission_id')->withTimestamps();
+    }
+
+    public function role()
+    {
+        return $this->belongsToMany('App\Models\Role','role_user','user_id','role_id')->withTimestamps();
+    }
 }
