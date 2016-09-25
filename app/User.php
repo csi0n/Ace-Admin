@@ -39,9 +39,9 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      */
     public function __construct()
     {
-        $this->permission_delete = config('admin.permissions.user.delete');
-        $this->permission_edit = config('admin.permissions.user.edit');
-        $this->module = config('admin.module.user');
+        $this->_permission_delete = config('admin.permissions.user.delete');
+        $this->_permission_edit = config('admin.permissions.user.edit');
+        $this->_module = config('admin.module.user');
     }
 
     public function permission()

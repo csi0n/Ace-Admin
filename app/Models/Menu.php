@@ -15,8 +15,8 @@ class Menu extends Model
      */
     public function __construct()
     {
-        $this->permission_edit = config('admin.permissions.menu.edit');
-        $this->permission_delete = config('admin.permissions.menu.delete');
-        $this->module = config('admin.module.menu');
+        $this->_permission_edit = config('admin.permissions.menu.edit');
+        $this->_permission_delete = config('admin.permissions.menu.delete');
+        $this->_module = config('admin.module.menu');
     }
 }

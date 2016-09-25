@@ -15,9 +15,9 @@ class Permission extends BicanPermission
      */
     public function __construct()
     {
-        $this->permission_edit = config('admin.permissions.permission.edit');
-        $this->permission_delete = config('admin.permissions.permission.delete');
-        $this->module = config('admin.module.permissions');
+        $this->_permission_edit = config('admin.permissions.permission.edit');
+        $this->_permission_delete = config('admin.permissions.permission.delete');
+        $this->_module = config('admin.module.permissions');
     }
 
 

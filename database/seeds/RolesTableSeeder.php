@@ -13,25 +13,27 @@ class RolesTableSeeder extends Seeder
      */
     public function run()
     {
-        $adminRole = Role::create([
-            'name' => 'Admin',
-            'slug' => 'admin',
-            'description' => '超级管理员',
-            'level' => 1,
-        ]);
+        $adminRole = new Role;
+        $adminRole->name = 'Admin';
+        $adminRole->slug = 'admin';
+        $adminRole->description = '超级管理员';
+        $adminRole->level = 1;
+        $adminRole->save();
 
-        $userRole = Role::create([
-            'name' => 'User',
-            'slug' => 'user',
-            'description' => '普通用户',
-        ]);
+        $userRole = new Role;
+        $userRole->name = 'User';
+        $userRole->slug = 'user';
+        $userRole->description = '普通用户';
+        $userRole->level = 2;
+        $userRole->save();
 
-        $all_permissions=Permission::where('status',config('admin.global.status.active'))->get();
-        foreach ($all_permissions as $permission){
+
+        $all_permissions = Permission::where('status', config('admin.global.status.active'))->get();
+        foreach ($all_permissions as $permission) {
             $adminRole->attachPermission($permission);
         }
 
-        $loginPermissions=Permission::where('slug','=','admin.systems.login')->first();
+        $loginPermissions = Permission::where('slug', '=', 'admin.systems.login')->first();
         $userRole->attachPermission($loginPermissions);
     }
 }

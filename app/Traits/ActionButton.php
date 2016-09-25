@@ -9,22 +9,22 @@ use Form;
  */
 trait ActionButton
 {
-    public $permission_edit;
-    public $permission_delete;
-    public $module;
+    public $_permission_edit;
+    public $_permission_delete;
+    public $_module;
 
     public function createEditButton()
     {
-        if (auth()->user()->can($this->permission_edit)) {
-            return '<a class="green" href="' . route($this->module.'.edit',$this->id) . '"><i class="icon-pencil bigger-130"></i></a>';
+        if (auth()->user()->can($this->_permission_edit)) {
+            return '<a class="green" href="' . route($this->_module.'.edit',$this->id) . '"><i class="icon-pencil bigger-130"></i></a>';
         }
         return '';
     }
 
     public function createDeleteButton()
     {
-        if (auth()->user()->can($this->permission_delete)) {
-            return '<a href="javascript:;" onclick="return false" class="red" id="destroy"><i class="icon-trash bigger-130"></i>'.Form::open(array('route'=>[$this->module.'.destroy',$this->id],'method'=>'delete','name'=>'delete_item')).Form::close().'</a>';
+        if (auth()->user()->can($this->_permission_delete)) {
+            return '<a href="javascript:;" onclick="return false" class="red" id="destroy"><i class="icon-trash bigger-130"></i>'.Form::open(array('route'=>[$this->_module.'.destroy',$this->id],'method'=>'delete','name'=>'delete_item')).Form::close().'</a>';
         }
         return '';
     }

@@ -14,9 +14,9 @@ class Role extends BicanRole
      */
     public function __construct()
     {
-        $this->permission_edit=config('admin.permissions.role.edit');
-        $this->permission_delete=config('admin.permissions.role.delete');
-        $this->module=config('admin.module.role');
+        $this->_permission_edit=config('admin.permissions.role.edit');
+        $this->_permission_delete=config('admin.permissions.role.delete');
+        $this->_module=config('admin.module.role');
     }
 
     public function permissions()
