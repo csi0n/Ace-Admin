@@ -30,19 +30,22 @@
                                                     <div class="dd-handle">
                                                         {{$v['name']}}
                                                         <div class="pull-right action-buttons">
-                                                            @permission(config('admin.permissions.menu.create'))
-                                                            <a class="blue" data-id="{{$v['id'  ]}}" data-pid="{{$v['pid']}}" href="javascript:;">
+                                                            @permission(config('admin.permissions.menu.create.name'))
+                                                            <a class="blue" data-id="{{$v['id'  ]}}"
+                                                               data-pid="{{$v['pid']}}" href="javascript:;">
                                                                 <i class="icon-exclamation-sign bigger-130"></i>
                                                             </a>
                                                             @endpermission
-                                                            @permission(config('admin.permissions.menu.edit'))
-                                                            <a class="green" data-id="{{$v['id']}}" data-pid="{{$v['pid']}}"
-                                                               href="javascript:;">
+                                                            @permission(config('admin.permissions.menu.edit.name'))
+                                                            <a class="green editMenu" data-id="{{$v['id']}}"
+                                                               data-pid="{{$v['pid']}}"
+                                                               href="javascript:;" onclick="return false">
                                                                 <i class="icon-pencil bigger-130"></i>
                                                             </a>
                                                             @endpermission
-                                                            @permission(config('admin.permissions.menu.delete'))
-                                                            <a href="javascript:;" onclick="return false" class="red destoryMenu">
+                                                            @permission(config('admin.permissions.menu.delete.name'))
+                                                            <a href="javascript:;" onclick="return false"
+                                                               class="red destoryMenu">
                                                                 <i class="icon-trash bigger-130"></i>
                                                                 {!! Form::open(array('route'=>['admin.menu.destroy',$v['id']],'method'=>'delete','name'=>'delete_item')) !!}{!! Form::close() !!}
                                                             </a>
@@ -56,13 +59,15 @@
                                                                 <div class="dd-handle">
                                                                     {{$val['name']}}
                                                                     <div class="pull-right action-buttons">
-                                                                        @permission(config('admin.permissions.menu.edit'))
-                                                                        <a class="green" data-id="{{$val['id']}}" data-pid="{{$v['id']}}"
+                                                                        @permission(config('admin.permissions.menu.edit.name'))
+                                                                        <a class="green editMenu" onclick="return false"
+                                                                           data-id="{{$val['id']}}"
+                                                                           data-pid="{{$v['id']}}"
                                                                            href="javascript:;">
                                                                             <i class="icon-pencil bigger-130"></i>
                                                                         </a>
                                                                         @endpermission
-                                                                        @permission(config('admin.permissions.menu.delete'))
+                                                                        @permission(config('admin.permissions.menu.delete.name'))
                                                                         <a href="javascript:;" onclick="return false"
                                                                            class="red destoryMenu">
                                                                             <i class="icon-trash bigger-130"></i>
@@ -75,24 +80,27 @@
                                                         @endforeach
                                                     </ol>
                                                 </li>
-                                                @else
+                                            @else
                                                 <li class="dd-item" data-id="{{$v['id']}}" data-pid="{{$v['pid']}}">
                                                     <div class="dd-handle">
                                                         {{$v['name']}}
                                                         <div class="pull-right action-buttons">
-                                                            @permission(config('admin.permissions.menu.create'))
-                                                            <a class="blue" data-id="{{$v['id'  ]}}" data-pid="{{$v['pid']}}" href="javascript:;">
+                                                            @permission(config('admin.permissions.menu.create.name'))
+                                                            <a class="blue" data-id="{{$v['id'  ]}}"
+                                                               data-pid="{{$v['pid']}}" href="javascript:;">
                                                                 <i class="icon-exclamation-sign bigger-130"></i>
                                                             </a>
                                                             @endpermission
-                                                            @permission(config('admin.permissions.menu.edit'))
-                                                            <a class="green" data-id="{{$v['id']}}" data-pid="{{$v['pid']}}"
-                                                               href="javascript:;">
+                                                            @permission(config('admin.permissions.menu.edit.name'))
+                                                            <a class="green editMenu" data-id="{{$v['id']}}"
+                                                               data-pid="{{$v['pid']}}"
+                                                               href="javascript:;" onclick="return false">
                                                                 <i class="icon-pencil bigger-130"></i>
                                                             </a>
                                                             @endpermission
-                                                            @permission(config('admin.permissions.menu.delete'))
-                                                            <a href="javascript:;" onclick="return false" class="red destoryMenu">
+                                                            @permission(config('admin.permissions.menu.delete.name'))
+                                                            <a href="javascript:;" onclick="return false"
+                                                               class="red destoryMenu">
                                                                 <i class="icon-trash bigger-130"></i>
                                                                 {!! Form::open(array('route'=>['admin.menu.destroy',$v['id']],'method'=>'delete','name'=>'delete_item')) !!}{!! Form::close() !!}
                                                             </a>
@@ -110,7 +118,7 @@
                         <div class="vspace-sm-5"></div>
 
                         <div class="col-sm-6">
-                            {!! Form::open(array('route'=>'admin.menu.store','method'=>'post','class'=>'form-horizontal','role'=>'form')) !!}
+                            {!! Form::open(array('route'=>'admin.menu.store','method'=>'post','class'=>'form-horizontal','role'=>'form','id'=>'menuForm')) !!}
                             <div class="form-group">
                                 {!! Form::label('name',trans('labels.menu.name'),['class'=>'col-sm-3 control-label no-padding-right']) !!}
                                 <div class="col-sm-9">
@@ -234,7 +242,9 @@
                                 data: {
                                     currentItemId: currentItemId,
                                     itemParentId: itemParentId,
+                                    _token: '{{csrf_token()}}',
                                 },
+                                type: 'post',
                                 dataType: 'json',
                                 success: function (result) {
                                     $.gritter.add({
@@ -249,10 +259,36 @@
                             e.stopPropagation();
                         });
                         $('[data-rel="tooltip"]').tooltip();
-                        $(document).on('click','.destoryMenu',function () {
+                        $(document).on('click', '.destoryMenu', function () {
                             $(this).find('form[name="delete_item"]').submit();
                         });
+                        $(document).on('click', '.editMenu', function () {
+                            var data_id = $(this).attr('data-id');
+                            $.ajax({
+                                url: '/admin/menu/' + data_id + '/edit',
+                                type: 'get',
+                                success: function (result) {
+                                    menuFun.initAttribute(result);
+                                }
+                            });
+                        })
                     });
-
+                    var menuFun = function () {
+                        var menusAttribute = function (result) {
+                            $('input[name="name"]').val(result.name);
+                            $('input[name="language"]').val(result.language);
+                            $('input[name="icon"]').val(result.icon);
+                            $('select[name="pid"]').val(result.pid);
+                            $('input[name="slug"]').val(result.slug);
+                            $('input[name="url"]').val(result.url);
+                            $('input[name="description"]').val(result.description);
+                            $('input[name="sort"]').val(result.sort);
+                            $('#menuForm').attr('action',result.update);
+                            $('#menuForm').append('<input type="hidden" name="_method" value="PATCH">');
+                        };
+                        return {
+                            initAttribute: menusAttribute
+                        }
+                    }();
                 </script>
 @endsection

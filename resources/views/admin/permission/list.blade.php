@@ -19,7 +19,7 @@
                 @include('flash::message')
                 <h3 class="header smaller lighter blue">
                     {{trans('labels.permission.list')}}
-                    @permission(config('admin.permissions.permission.create'))
+                    @permission(config('admin.permissions.permission.create.name'))
                     <a href="{{route('admin.permission.create')}}" class="btn btn-sm btn-primary">{{trans('labels.add')}}</a>
                     @endpermission
                 </h3>

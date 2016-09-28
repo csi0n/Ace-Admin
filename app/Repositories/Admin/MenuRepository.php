@@ -8,7 +8,7 @@
 
 namespace App\Repositories\Admin;
 
-use App\Models\Menu;
+use App\Models\Admin\Menu;
 use Cache;
 use Flash;
 
@@ -99,7 +99,25 @@ class MenuRepository extends BaseRepository
 
     public function edit($id)
     {
-        return $this->verifyMenu($id);
+        $menu = $this->verifyMenu($id);
+        if (empty($menu))
+            return false;
+        $menu->update = route('admin.menu.update', ['id' => $menu->id]);
+        return $menu;
+    }
+
+    public function update($id, $request)
+    {
+        $menu = $this->verifyMenu($id);
+        if (empty($menu))
+            return false;
+        $menu->fill($request->all());
+        if ($menu->save()) {
+            Flash::success(trans('alerts.menu.updatedSuccess'));
+            return true;
+        }
+        Flash::error(trans('alerts.menu.updatedFailed'));
+        return false;
     }
 
     public function store($request)

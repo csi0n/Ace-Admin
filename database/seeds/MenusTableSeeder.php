@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Menu;
+use App\Models\Admin\Menu;
 use Illuminate\Database\Seeder;
 
 class MenusTableSeeder extends Seeder

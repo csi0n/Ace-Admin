@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Admin;
 
 use App\Traits\ActionButton;
 use Bican\Roles\Models\Permission as BicanPermission;
@@ -23,6 +23,6 @@ class Permission extends BicanPermission
 
     public function role()
     {
-        return $this->belongsToMany('App\Models\Role');
+        return $this->belongsToMany('App\Models\Admin\Role');
     }
 }

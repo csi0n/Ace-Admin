@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\Admin\RoleRequest;
 use App\Http\Requests\Admin\UserRequest;
+use App\Traits\CheckPermissions;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -14,6 +15,18 @@ use RoleRepository;
 
 class UserController extends Controller
 {
+    use CheckPermissions;
+
+    /**
+     * UserController constructor.
+     */
+    public function __construct()
+    {
+        $this->_key = 'user';
+        $this->init();
+    }
+
+
     /**
      * Created by huaqing.chen.
      * Email huaqing.chen@bioon.com
@@ -65,6 +78,13 @@ class UserController extends Controller
         return redirect()->back()->withInput();
     }
 
+    /**
+     * Created by huaqing.chen.
+     * Email huaqing.chen@bioon.com
+     * Desc 更新用户
+     * @param UserRequest $request
+     * @return $this|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function update(UserRequest $request)
     {
         $ret = UserRepository::update($request);
@@ -74,6 +94,13 @@ class UserController extends Controller
     }
 
 
+    /**
+     * Created by huaqing.chen.
+     * Email huaqing.chen@bioon.com
+     * Desc 编辑用户
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\View\View
+     */
     public function edit($id)
     {
         $user = UserRepository::edit($id);
@@ -84,6 +111,13 @@ class UserController extends Controller
         return redirect('admin/user');
     }
 
+    /**
+     * Created by huaqing.chen.
+     * Email huaqing.chen@bioon.com
+     * Desc 删除用户
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function destroy($id)
     {
         UserRepository::destroy($id);

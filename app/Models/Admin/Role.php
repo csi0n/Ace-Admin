@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Admin;
 
 use App\Traits\ActionButton;
 use Illuminate\Database\Eloquent\Model;
@@ -21,7 +21,7 @@ class Role extends BicanRole
 
     public function permissions()
     {
-        return $this->belongsToMany('App\Models\Permission','permission_role','role_id','permission_id')
+        return $this->belongsToMany('App\Models\Admin\Permission','permission_role','role_id','permission_id')
             ->withTimestamps();
     }
 }

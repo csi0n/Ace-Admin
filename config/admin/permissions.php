@@ -3,27 +3,94 @@
  * Created by csi0n
  * User: huaqing.chen
  * Date: 9/19/16
- * Time: 15:12
+ * Time: 20:01
  */
 return [
     'permission' => [
-        'create' => 'admin.permissions.create',
-        'edit' => 'admin.permissions.edit',
-        'delete' => 'admin.permissions.delete',
+        'list' => [
+            'name' => 'admin.permissions.list',
+            'only' => ['index', 'ajaxIndex'],
+            'except' => [],
+        ],
+        'create' => [
+            'name' => 'admin.permissions.create',
+            'only' => ['create', 'store'],
+            'except' => [],
+        ],
+        'edit' => [
+            'name' => 'admin.permissions.edit',
+            'only' => ['edit', 'update'],
+            'except' => [],
+        ],
+        'delete' => [
+            'name' => 'admin.permissions.delete',
+            'only' => ['destroy'],
+            'except' => [],
+        ],
     ],
     'menu' => [
-        'create' => 'admin.menus.create',
-        'edit' => 'admin.menus.edit',
-        'delete' => 'admin.menus.delete',
+        'list' => [
+            'name' => 'admin.menus.list',
+            'only' => ['index', 'ajaxIndex'],
+            'except' => [],
+        ],
+        'create' => [
+            'name' => 'admin.menus.create',
+            'only' => ['create', 'store'],
+            'except' => [],
+        ],
+        'edit' => [
+            'name' => 'admin.menus.edit',
+            'only' => ['edit', 'update'],
+            'except' => [],
+        ],
+        'delete' => [
+            'name' => 'admin.menus.delete',
+            'only' => ['destroy'],
+            'except' => [],
+        ],
     ],
     'role' => [
-        'create' => 'admin.roles.create',
-        'edit' => 'admin.roles.edit',
-        'delete' => 'admin.roles.delete',
+        'list' => [
+            'name' => 'admin.roles.list',
+            'only' => ['index', 'ajaxIndex'],
+        ],
+        'create' => [
+            'name' => 'admin.roles.create',
+            'only' => ['create', 'store'],
+            'except' => []
+        ],
+        'edit' => [
+            'name' => 'admin.roles.edit',
+            'only' => ['edit', 'update'],
+            'except' => [],
+        ],
+        'delete' => [
+            'name' => 'admin.roles.delete',
+            'only' => ['destroy'],
+            'except' => [],
+        ],
     ],
     'user' => [
-        'create' => 'admin.users.create',
-        'edit' => 'admin.users.edit',
-        'delete' => 'admin.users.delete',
+        'list' => [
+            'name' => 'admin.users.list',
+            'only' => ['index', 'ajaxIndex'],
+            'except' => [],
+        ],
+        'create' => [
+            'name' => 'admin.users.create',
+            'only' => ['create', 'store'],
+            'except' => [],
+        ],
+        'edit' => [
+            'name' => 'admin.users.edit',
+            'only' => ['edit', 'update'],
+            'except' => [],
+        ],
+        'delete' => [
+            'name' => 'admin.users.delete',
+            'only' => ['destroy'],
+            'except' => [],
+        ],
     ],
 ];

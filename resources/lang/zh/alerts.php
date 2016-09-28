@@ -7,6 +7,7 @@
  */
 return [
     'notice' => '提示',
+    'noPermissions'=>'没有权限',
     'permission' => [
         'addSuccess' => '添加权限成功',
         'addFailed' => '添加权限失败',

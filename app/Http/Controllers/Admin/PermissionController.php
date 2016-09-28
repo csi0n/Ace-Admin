@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\Admin\PermissionRequest;
+use App\Traits\CheckPermissions;
 use PermissionRepository;
 use Illuminate\Http\Request;
 
@@ -11,6 +12,17 @@ use App\Http\Controllers\Controller;
 
 class PermissionController extends Controller
 {
+    use CheckPermissions;
+
+    /**
+     * PermissionController constructor.
+     */
+    public function __construct()
+    {
+        $this->_key = 'permission';
+        $this->init();
+    }
+
     /**
      * Created by huaqing.chen.
      * Email huaqing.chen@bioon.com
@@ -78,6 +90,13 @@ class PermissionController extends Controller
         return redirect()->back()->withInput();
     }
 
+    /**
+     * Created by huaqing.chen.
+     * Email huaqing.chen@bioon.com
+     * Desc 删除权限
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function destroy($id)
     {
         PermissionRepository::destroy($id);

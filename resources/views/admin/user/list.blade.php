@@ -22,7 +22,7 @@
                     @include('flash::message')
                     <h3 class="header smaller lighter blue">
                         {{trans('labels.user.list')}}
-                        @permission(config('admin.permissions.user.create'))
+                        @permission(config('admin.permissions.user.create.name'))
                         <a href="{{route('admin.user.create')}}" class="btn btn-sm btn-primary">{{trans('labels.add')}}</a>
                         @endpermission
                     </h3>

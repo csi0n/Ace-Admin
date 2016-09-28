@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\Admin\RoleRequest;
+use App\Traits\CheckPermissions;
 use PermissionRepository;
 use RoleRepository;
 
@@ -11,6 +12,18 @@ use App\Http\Controllers\Controller;
 
 class RoleController extends Controller
 {
+    use CheckPermissions;
+
+    /**
+     * RoleController constructor.
+     */
+    public function __construct()
+    {
+        $this->_key='role';
+        $this->init();
+    }
+
+
     /**
      * Created by huaqing.chen.
      * Email huaqing.chen@bioon.com

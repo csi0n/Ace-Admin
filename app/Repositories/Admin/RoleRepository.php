@@ -9,7 +9,7 @@
 namespace App\Repositories\Admin;
 
 
-use App\Models\Role;
+use App\Models\Admin\Role;
 use Flash;
 
 class RoleRepository extends BaseRepository

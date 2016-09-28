@@ -9,7 +9,7 @@
 namespace App\Repositories\Admin;
 
 
-use App\Models\Permission;
+use App\Models\Admin\Permission;
 use Flash;
 
 class PermissionRepository extends BaseRepository

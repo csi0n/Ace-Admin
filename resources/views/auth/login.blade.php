@@ -53,7 +53,7 @@
 
                                             <label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-                                                            {!! Form::text('password',null,['class'=>'form-control','placeholder'=>trans('global.login.password')]) !!}
+                                                            {!! Form::password('password',['class'=>'form-control','placeholder'=>trans('global.login.password')]) !!}
 															<i class="icon-lock"></i>
 														</span>
                                             </label>
