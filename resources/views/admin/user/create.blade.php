@@ -77,21 +77,38 @@
                                     <tbody>
                                     @if($permissions)
                                         @foreach($permissions as $permission)
-                                            <tr>
-                                                <td class="text-center" style="vertical-align: middle;"> {{$permission['name']}} </td>
-                                                <td>
-                                                    <div class="col-md-4">
-                                                        <div class="md-checkbox">
-                                                            <div class="checkbox">
-                                                                <label>
-                                                                    <input name="permission[]" value="{{$permission['id']}}" type="checkbox" class="ace">
-                                                                    <span class="lbl">{{$permission['name']}}</span>
-                                                                </label>
+                                            @foreach($permission as $k=>$v)
+                                                <tr>
+                                                    <td class="text-center"> {{$k}} </td>
+                                                    <td>
+                                                        @if(isDoubleArray($v))
+                                                            @foreach($v as $val)
+                                                                <div class="col-md-4">
+                                                                    <div class="md-checkbox">
+                                                                        <div class="checkbox">
+                                                                            <label>
+                                                                                <input name="permission[]" value="{{$val['id']}}" type="checkbox" class="ace">
+                                                                                <span class="lbl">{{$val['name']}}</span>
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            @endforeach
+                                                        @else
+                                                            <div class="col-md-4">
+                                                                <div class="md-checkbox">
+                                                                    <div class="checkbox">
+                                                                        <label>
+                                                                            <input name="permission[]" value="{{$v['id']}}" type="checkbox" class="ace">
+                                                                            <span class="lbl">{{$v['name']}}</span>
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
+                                                        @endif
+                                                    </td>
+                                                </tr>
+                                            @endforeach
                                         @endforeach
                                     @endif
                                     </tbody>
@@ -100,7 +117,7 @@
                         </div>
                     </div>
             </div>
-                    <div class="form-actions">
+                    <div class="">
                         <div class="col-md-offset-3 col-md-9">
                             <button class="btn btn-info" type="submit">
                                 <i class="icon-ok bigger-110"></i>

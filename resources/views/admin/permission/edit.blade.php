@@ -55,7 +55,7 @@
                             {!! Form::text('model',$permission['model'],['class'=>'col-xs-10 col-sm-5','id'=>'model','placeholder'=>trans('labels.permission.model')]) !!}
                         </div>
                     </div>
-                    <div class="clearfix form-actions">
+                    <div class="clearfix">
                         <div class="col-md-offset-3 col-md-9">
                             <button class="btn btn-info" type="submit">
                                 <i class="icon-ok bigger-110"></i>

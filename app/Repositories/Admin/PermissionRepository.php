@@ -115,7 +115,18 @@ class PermissionRepository extends BaseRepository
     public function GetAllPermissionArray()
     {
         $permissions = Permission::all();
-        return $permissions->isEmpty() ? [] : $permissions->toArray();
+        if ($permissions->isEmpty())
+            return [];
+        $permissions = $permissions->toArray();
+        $array = [];
+        foreach ($permissions as $permission) {
+            array_set($array, $permission['slug'], [
+                'id' => $permission['id'],
+                'name' => $permission['name'],
+                'desc' => $permission['description']
+            ]);
+        }
+        return $array;
     }
 
 }
