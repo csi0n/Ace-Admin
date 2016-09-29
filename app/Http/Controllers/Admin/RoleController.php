@@ -2,32 +2,37 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Admin\Ext\BaseController;
 use App\Http\Requests\Admin\RoleRequest;
-use App\Traits\CheckPermissions;
+use App\Repositories\IAdmin\IPermissionRepository;
+use App\Repositories\IAdmin\IRoleRepository;
 use PermissionRepository;
 use RoleRepository;
 
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
-
-class RoleController extends Controller
+class RoleController extends BaseController
 {
-    use CheckPermissions;
+    protected $iRoleRepository;
+
+    protected $iPermissionRepository;
 
     /**
      * RoleController constructor.
+     * @param IRoleRepository $iRoleRepository
+     * @param IPermissionRepository $iPermissionRepository
      */
-    public function __construct()
+    public function __construct(IRoleRepository $iRoleRepository, IPermissionRepository $iPermissionRepository)
     {
-        $this->_key='role';
-        $this->init();
+        $this->_key = 'role';
+        parent::__construct();
+        $this->iRoleRepository = $iRoleRepository;
+        $this->iPermissionRepository = $iPermissionRepository;
     }
 
 
     /**
      * Created by huaqing.chen.
      * Email huaqing.chen@bioon.com
-     * Desc Index
+     * Desc
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
@@ -43,7 +48,7 @@ class RoleController extends Controller
      */
     public function ajaxIndex()
     {
-        $data = RoleRepository::ajaxIndex();
+        $data = $this->iRoleRepository->ajaxIndex();
         return response()->json($data);
     }
 
@@ -55,7 +60,7 @@ class RoleController extends Controller
      */
     public function create()
     {
-        $permissions = PermissionRepository::GetAllPermissionArray();
+        $permissions = $this->iPermissionRepository->GetAllPermissionArray();
         return view('admin.role.create', compact('permissions'));
     }
 
@@ -68,7 +73,7 @@ class RoleController extends Controller
      */
     public function store(RoleRequest $request)
     {
-        $ret = RoleRepository::store($request);
+        $ret = $this->iRoleRepository->store($request);
         if ($ret)
             return redirect('admin/role');
         else
@@ -84,8 +89,8 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
-        $role = RoleRepository::edit($id);
-        $permissions = PermissionRepository::GetAllPermissionArray();
+        $role = $this->iRoleRepository->edit($id);
+        $permissions = $this->iPermissionRepository->GetAllPermissionArray();
         return view('admin.role.edit', compact('role', 'permissions'));
     }
 
@@ -97,9 +102,9 @@ class RoleController extends Controller
      * @param $id
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update(RoleRequest $request, $id)
+    public function update($id,RoleRequest $request)
     {
-        RoleRepository::update($request, $id);
+        $this->iRoleRepository->update($id, $request);
         return redirect('admin/role');
     }
 
@@ -112,7 +117,7 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-        RoleRepository::destroy($id);
+        $this->iRoleRepository->destroy($id);
         return redirect('admin/role');
     }
 }

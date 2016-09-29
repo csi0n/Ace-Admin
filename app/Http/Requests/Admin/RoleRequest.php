@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests\Admin;
 
-use App\Http\Requests\Request;
+use App\Http\Requests\Admin\Ext\BaseRequest;
 
-class RoleRequest extends Request
+class RoleRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class RoleRequest extends Request
      */
     public function authorize()
     {
-        return true;
+        return auth()->check();
     }
 
     /**
@@ -32,14 +32,6 @@ class RoleRequest extends Request
         ];
     }
 
-    public function messages()
-    {
-        return [
-            'required'  => trans('validation.required'),
-            'unique'    => trans('validation.unique'),
-            'numeric'   => trans('validation.numeric'),
-        ];
-    }
 
     public function attributes()
     {

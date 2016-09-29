@@ -6,13 +6,14 @@
  * Time: 19:27
  */
 
-namespace app\Http\ViewComposers;
+namespace App\Http\ViewComposers;
 
 
+use App\Http\ViewComposers\Ext\BaseComposer;
+use App\Repositories\IAdmin\IMenuRepository;
 use Illuminate\View\View;
-use MenuRepository as Menus;
 
-class MenusComposer
+class MenusComposer extends BaseComposer
 {
     protected $menus;
 
@@ -20,13 +21,12 @@ class MenusComposer
      * MenusComposer constructor.
      * @param $menus
      */
-    public function __construct(Menus $menus)
+    public function __construct(IMenuRepository $menus)
     {
         $this->menus = $menus;
     }
 
     public function compose(View $view){
-        $menus=$this->menus;
-        $view->with('menus',$menus::menus());
+        $view->with('menus',$this->menus->menus());
     }
 }

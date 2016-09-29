@@ -10,9 +10,11 @@ namespace App\Repositories\Admin;
 
 
 use App\Models\Admin\Role;
+use App\Repositories\Admin\Ext\BaseRepository;
+use App\Repositories\IAdmin\IRoleRepository;
 use Flash;
 
-class RoleRepository extends BaseRepository
+class RoleRepository extends BaseRepository implements IRoleRepository
 {
     public function ajaxIndex()
     {
@@ -111,5 +113,15 @@ class RoleRepository extends BaseRepository
     {
         $role = Role::all();
         return $role->isEmpty() ? [] : $role->toArray();
+    }
+
+    public function index()
+    {
+        // TODO: Implement index() method.
+    }
+
+    public function create()
+    {
+        // TODO: Implement create() method.
     }
 }

@@ -2,25 +2,19 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Admin\Ext\BaseController;
 use App\Http\Requests\Admin\PermissionRequest;
-use App\Traits\CheckPermissions;
-use PermissionRepository;
-use Illuminate\Http\Request;
+use App\Repositories\IAdmin\IPermissionRepository;
 
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
-
-class PermissionController extends Controller
+class PermissionController extends BaseController
 {
-    use CheckPermissions;
+    protected $iPermissionRepository;
 
-    /**
-     * PermissionController constructor.
-     */
-    public function __construct()
+    public function __construct(IPermissionRepository $iPermissionRepository)
     {
         $this->_key = 'permission';
-        $this->init();
+        parent::__construct();
+        $this->iPermissionRepository = $iPermissionRepository;
     }
 
     /**
@@ -54,7 +48,7 @@ class PermissionController extends Controller
      */
     public function store(PermissionRequest $request)
     {
-        $ret = PermissionRepository::store($request);
+        $ret = $this->iPermissionRepository->store($request);
         if ($ret)
             return redirect('admin/permission');
         return redirect()->back()->withInput();
@@ -69,7 +63,7 @@ class PermissionController extends Controller
      */
     public function edit($id)
     {
-        $permission = PermissionRepository::edit($id);
+        $permission = $this->iPermissionRepository->edit($id);
         if ($permission)
             return view('admin.permission.edit', compact('permission'));
         return redirect('admin/permission');
@@ -82,9 +76,9 @@ class PermissionController extends Controller
      * @param PermissionRequest $request
      * @return $this|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update(PermissionRequest $request, $id)
+    public function update($id, PermissionRequest $request)
     {
-        $ret = PermissionRepository::update($request, $id);
+        $ret = $this->iPermissionRepository->update($id, $request);
         if ($ret)
             return redirect('admin/permission');
         return redirect()->back()->withInput();
@@ -99,7 +93,7 @@ class PermissionController extends Controller
      */
     public function destroy($id)
     {
-        PermissionRepository::destroy($id);
+        $this->iPermissionRepository->destroy($id);
         return redirect('admin/permission');
     }
 
@@ -111,7 +105,7 @@ class PermissionController extends Controller
      */
     public function ajaxIndex()
     {
-        $data = PermissionRepository::ajaxIndex();
+        $data = $this->iPermissionRepository->ajaxIndex();
         return response()->json($data);
     }
 }

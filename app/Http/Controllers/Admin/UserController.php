@@ -2,28 +2,40 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\Admin\RoleRequest;
+use App\Http\Controllers\Admin\Ext\BaseController;
 use App\Http\Requests\Admin\UserRequest;
-use App\Traits\CheckPermissions;
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
+use App\Repositories\IAdmin\IPermissionRepository;
+use App\Repositories\IAdmin\IRoleRepository;
+use App\Repositories\IAdmin\IUserRepository;
 use PermissionRepository;
 use UserRepository;
 use RoleRepository;
 
-class UserController extends Controller
+class UserController extends BaseController
 {
-    use CheckPermissions;
+    protected $iUserRepository;
+
+    protected $iRoleRepository;
+
+    protected $iPermissionRepository;
 
     /**
      * UserController constructor.
+     * @param IUserRepository $iUserRepository
+     * @param IRoleRepository $iRoleRepository
+     * @param IPermissionRepository $iPermissionRepository
      */
-    public function __construct()
+    public function __construct(
+        IUserRepository $iUserRepository,
+        IRoleRepository $iRoleRepository,
+        IPermissionRepository $iPermissionRepository
+    )
     {
         $this->_key = 'user';
-        $this->init();
+        parent::__construct();
+        $this->iUserRepository = $iUserRepository;
+        $this->iRoleRepository = $iRoleRepository;
+        $this->iPermissionRepository = $iPermissionRepository;
     }
 
 
@@ -35,7 +47,7 @@ class UserController extends Controller
      */
     public function ajaxIndex()
     {
-        $data = UserRepository::ajaxIndex();
+        $data = $this->iUserRepository->ajaxIndex();
         return response()->json($data);
     }
 
@@ -58,8 +70,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        $permissions = PermissionRepository::GetAllPermissionArray();
-        $roles = RoleRepository::GetAllRoleArray();
+        $permissions = $this->iPermissionRepository->GetAllPermissionArray();
+        $roles = $this->iRoleRepository->GetAllRoleArray();
         return view('admin.user.create', compact('permissions', 'roles'));
     }
 
@@ -72,7 +84,7 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
-        $ret = UserRepository::store($request);
+        $ret = $this->iUserRepository->store($request);
         if ($ret)
             return redirect('admin/user');
         return redirect()->back()->withInput();
@@ -85,9 +97,9 @@ class UserController extends Controller
      * @param UserRequest $request
      * @return $this|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update(UserRequest $request)
+    public function update($id, UserRequest $request)
     {
-        $ret = UserRepository::update($request);
+        $ret = $this->iUserRepository->update($id, $request);
         if ($ret)
             return redirect('admin/user');
         return redirect()->back()->withInput();
@@ -103,9 +115,9 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = UserRepository::edit($id);
-        $roles = RoleRepository::GetAllRoleArray();
-        $permissions = PermissionRepository::GetAllPermissionArray();
+        $user = $this->iUserRepository->edit($id);
+        $roles = $this->iRoleRepository->GetAllRoleArray();
+        $permissions = $this->iPermissionRepository->GetAllPermissionArray();
         if ($user)
             return view('admin.user.edit', compact('user', 'roles', 'permissions'));
         return redirect('admin/user');
@@ -120,7 +132,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        UserRepository::destroy($id);
+        $this->iUserRepository->destroy($id);
         return redirect('admin/user');
     }
 

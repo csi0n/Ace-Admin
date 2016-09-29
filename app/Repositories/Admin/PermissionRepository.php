@@ -10,9 +10,11 @@ namespace App\Repositories\Admin;
 
 
 use App\Models\Admin\Permission;
+use App\Repositories\Admin\Ext\BaseRepository;
+use App\Repositories\IAdmin\IPermissionRepository;
 use Flash;
 
-class PermissionRepository extends BaseRepository
+class PermissionRepository extends BaseRepository implements IPermissionRepository
 {
 
     public function ajaxIndex()
@@ -129,4 +131,13 @@ class PermissionRepository extends BaseRepository
         return $array;
     }
 
+    public function index()
+    {
+        // TODO: Implement index() method.
+    }
+
+    public function create()
+    {
+        // TODO: Implement create() method.
+    }
 }

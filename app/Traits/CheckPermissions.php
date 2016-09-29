@@ -21,11 +21,13 @@ trait CheckPermissions
     public function init()
     {
         $permissions = config(empty($_config_prefix) ? 'admin.permissions.' . $this->_key : $this->_config_prefix . '.permissions.' . $this->_key);
-        foreach ($permissions as $k => $v) {
-            if (!empty($v['only']))
-                $this->middleware('checkPermission:' . $v['name'], ['only' => $v['only']]);
-            if (!empty($v['except']))
-                $this->middleware('checkPermission:' . $v['name'], ['except' => $v['except']]);
+        if (!empty($permissions)) {
+            foreach ($permissions as $k => $v) {
+                if (!empty($v['only']))
+                    $this->middleware('checkPermission:' . $v['name'], ['only' => $v['only']]);
+                if (!empty($v['except']))
+                    $this->middleware('checkPermission:' . $v['name'], ['except' => $v['except']]);
+            }
         }
     }
 }

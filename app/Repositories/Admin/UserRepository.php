@@ -9,10 +9,12 @@
 namespace App\Repositories\Admin;
 
 
+use App\Repositories\Admin\Ext\BaseRepository;
+use App\Repositories\IAdmin\IUserRepository;
 use App\User;
 use Flash;
 
-class UserRepository extends BaseRepository
+class UserRepository extends BaseRepository implements IUserRepository
 {
 
     public function ajaxIndex()
@@ -98,5 +100,20 @@ class UserRepository extends BaseRepository
             return $user;
         Flash::error(trans('alerts.user.notFind'));
         return false;
+    }
+
+    public function index()
+    {
+        // TODO: Implement index() method.
+    }
+
+    public function create()
+    {
+        // TODO: Implement create() method.
+    }
+
+    public function update($id, $request)
+    {
+        // TODO: Implement update() method.
     }
 }

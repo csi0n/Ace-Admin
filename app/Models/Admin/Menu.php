@@ -1,11 +1,10 @@
 <?php
 
 namespace App\Models\Admin;
-
+use App\Models\Admin\Ext\BaseModel;
 use App\Traits\ActionButton;
-use Illuminate\Database\Eloquent\Model;
 
-class Menu extends Model
+class Menu extends BaseModel
 {
     use ActionButton;
     protected $fillable = ['name', 'pid', 'language', 'icon', 'slug', 'url', 'description', 'sort', 'status'];

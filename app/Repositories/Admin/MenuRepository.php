@@ -7,14 +7,14 @@
  */
 
 namespace App\Repositories\Admin;
-
 use App\Models\Admin\Menu;
+use App\Repositories\Admin\Ext\BaseRepository;
+use App\Repositories\IAdmin\IMenuRepository;
 use Cache;
 use Flash;
 
-class MenuRepository extends BaseRepository
+class MenuRepository extends BaseRepository implements IMenuRepository
 {
-
     public function ajaxIndex()
     {
         /*获取数据*/
@@ -165,7 +165,7 @@ class MenuRepository extends BaseRepository
         return false;
     }
 
-    private function verifyMenu($id)
+    public function verifyMenu($id)
     {
         $menu = Menu::find($id);
         if (empty($menu)) {
@@ -173,5 +173,15 @@ class MenuRepository extends BaseRepository
             return false;
         }
         return $menu;
+    }
+
+    public function index()
+    {
+        // TODO: Implement index() method.
+    }
+
+    public function create()
+    {
+        // TODO: Implement create() method.
     }
 }

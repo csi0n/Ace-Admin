@@ -13,7 +13,7 @@ class UserRequest extends Request
      */
     public function authorize()
     {
-        return true;
+        return auth()->check();
     }
 
     /**
@@ -29,18 +29,6 @@ class UserRequest extends Request
             'email' => 'required|email|unique:users,email,'.$this->id,
             'password' => 'required|min:6|max:32',
             'status' => 'required',
-        ];
-    }
-
-    public function messages()
-    {
-        return [
-            'numeric' => trans('validation.numeric'),
-            'required' => trans('validation.required'),
-            'unique' => trans('validation.unique'),
-            'min' => trans('validation.min.string'),
-            'max' => trans('validation.max.string'),
-            'email' => trans('validation.email'),
         ];
     }
 

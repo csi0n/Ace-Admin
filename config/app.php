@@ -170,6 +170,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\ComposerServiceProvider::class,
         App\Providers\BackendServiceProvider::class,
+        App\Providers\RepositoryProvider::class,
 
 
     ],
@@ -224,12 +225,10 @@ return [
         'Flash' => Laracasts\Flash\Flash::class,
 
 
-
-
-        'MenuRepository'=>App\Facades\MenuFacade::class,
-        'PermissionRepository'=>App\Facades\PermissionFacade::class,
-        'RoleRepository'=>App\Facades\RoleFacade::class,
-        'UserRepository'=>App\Facades\UserFacade::class,
+        'MenuRepository' => App\Facades\MenuFacade::class,
+        'PermissionRepository' => App\Facades\PermissionFacade::class,
+        'RoleRepository' => App\Facades\RoleFacade::class,
+        'UserRepository' => App\Facades\UserFacade::class,
 
     ],
 

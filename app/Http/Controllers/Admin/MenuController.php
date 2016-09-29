@@ -2,25 +2,24 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Admin\Ext\BaseController;
 use App\Http\Requests\Admin\MenuRequest;
-use App\Traits\CheckPermissions;
-use MenuRepository;
-use Illuminate\Http\Request;
+use App\Repositories\IAdmin\IMenuRepository;
 
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
-
-class MenuController extends Controller
+class MenuController extends BaseController
 {
-    use CheckPermissions;
+
+    protected $menuRepository;
 
     /**
      * MenuController constructor.
+     * @param IMenuRepository $menuRepository
      */
-    public function __construct()
+    public function __construct(IMenuRepository $menuRepository)
     {
         $this->_key = 'menu';
-        $this->init();
+        parent::__construct();
+        $this->menuRepository = $menuRepository;
     }
 
     /**
@@ -31,7 +30,7 @@ class MenuController extends Controller
      */
     public function index()
     {
-        $menus = MenuRepository::menus();
+        $menus = $this->menuRepository->menus();
         return view('admin.menu.list', compact('menus'));
     }
 
@@ -43,7 +42,7 @@ class MenuController extends Controller
      */
     public function ajaxIndex()
     {
-        $data = MenuRepository::ajaxIndex();
+        $data = $this->menuRepository->ajaxIndex();
         return response()->json($data);
     }
 
@@ -56,7 +55,7 @@ class MenuController extends Controller
      */
     public function store(MenuRequest $request)
     {
-        MenuRepository::store($request);
+        $this->menuRepository->store($request);
         return redirect('admin/menu');
     }
 
@@ -69,7 +68,7 @@ class MenuController extends Controller
      */
     public function edit($id)
     {
-        $menu = MenuRepository::edit($id);
+        $menu = $this->menuRepository->edit($id);
         return response()->json($menu);
     }
 
@@ -83,7 +82,7 @@ class MenuController extends Controller
      */
     public function update($id, MenuRequest $request)
     {
-        MenuRepository::update($id, $request);
+        $this->menuRepository->update($id, $request);
         return redirect('admin/menu');
     }
 
@@ -95,7 +94,7 @@ class MenuController extends Controller
      */
     public function sort()
     {
-        $result = MenuRepository::sort();
+        $result = $this->menuRepository->sort();
         return response()->json($result);
     }
 
@@ -108,7 +107,7 @@ class MenuController extends Controller
      */
     public function destroy($id)
     {
-        MenuRepository::destroy($id);
+        $this->menuRepository->destroy($id);
         return redirect('admin/menu');
     }
 }

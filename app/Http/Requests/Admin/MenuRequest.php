@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests\Admin;
 
-use App\Http\Requests\Request;
+use App\Http\Requests\Admin\Ext\BaseRequest;
 
-class MenuRequest extends Request
+class MenuRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -33,13 +33,6 @@ class MenuRequest extends Request
         ];
     }
 
-    public function messages()
-    {
-        return [
-            'numeric' => trans('validation.numeric'),
-            'required' => trans('validation.required'),
-        ];
-    }
     public function attributes()
     {
         return [

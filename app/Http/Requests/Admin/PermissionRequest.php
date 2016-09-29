@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests\Admin;
 
-use App\Http\Requests\Request;
+use App\Http\Requests\Admin\Ext\BaseRequest;
 
-class PermissionRequest extends Request
+class PermissionRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -31,14 +31,7 @@ class PermissionRequest extends Request
             'status' => 'required',
         ];
     }
-    public function messages()
-    {
-        return [
-            'required'=>trans('validation.required'),
-            'unique'=>trans('validation.unique'),
-            'numeric'=>trans('validation.numeric'),
-        ];
-    }
+
     public function attributes()
     {
         return [
