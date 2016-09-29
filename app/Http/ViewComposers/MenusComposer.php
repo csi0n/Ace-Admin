@@ -10,7 +10,7 @@ namespace App\Http\ViewComposers;
 
 
 use App\Http\ViewComposers\Ext\BaseComposer;
-use App\Repositories\IAdmin\IMenuRepository;
+use App\Repositories\IAdmin\IMenuRepository as IMenu;
 use Illuminate\View\View;
 
 class MenusComposer extends BaseComposer
@@ -21,7 +21,7 @@ class MenusComposer extends BaseComposer
      * MenusComposer constructor.
      * @param $menus
      */
-    public function __construct(IMenuRepository $menus)
+    public function __construct(IMenu $menus)
     {
         $this->menus = $menus;
     }
