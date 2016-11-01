@@ -23,3 +23,10 @@ if (!function_exists('isDoubleArray')) {
         return false;
     }
 }
+if (!function_exists('endSegments')) {
+    function endSegments($position_from_end = 1)
+    {
+        $segments = request()->segments();
+        return $segments[sizeof($segments) - $position_from_end];
+    }
+}

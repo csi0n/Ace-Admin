@@ -26,7 +26,7 @@ class UserRequest extends Request
         return [
             'id' => 'numeric',
             'name' => 'required',
-            'email' => 'required|email|unique:users,email,'.$this->id,
+            'email' => 'required|email|unique:users,email,'.endSegments(),
             'password' => 'required|min:6|max:32',
             'status' => 'required',
         ];
